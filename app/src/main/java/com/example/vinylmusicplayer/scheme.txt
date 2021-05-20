@@ -1,0 +1,13 @@
+Fragments:
+          SongPlayerFragment/Activity
+          SongListFragment
+          ArtistListFragment (Stessa cosa per gli artisti)
+          AlbumListFragment (quando clicchi su un album si farà il filtro per canzoni
+                             si andrà a richiamare songListFragment/Adapter con la lista filtrata)
+          PlaylistFragment (Elenco di playlist con possibilità di riprod casuale per ognuna di essa)
+Main Activity avra lo slider con Brani -> Artisti -> Album -> Playlist
+In base a dove è posizionato chiami il fragment corrente senza eliminare la bar
+
+Classes: Song, Artist, Album,Playlist,
+        Helpers: SwipeHelper
+Backend: SpotifyAPIManager,

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Vinyl Music Player</string>
+    <string name="songTabText">Canzoni</string>
+    <string name="artistTabText">Artisti</string>
+    <string name="albumTabText">Album</string>
+    <string name="playlistTabText">Playlist</string>
+    <string name="searchTextHint">Ricerca elemento</string>
+    <string name="settingsText">Impostazioni</string>
+    <string name="helpText">Aiuto</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="access_token">access_token</string>
+    <string name="access_token_data">access_token_data</string>
+    <string name="album_cover_iv">Copertina album</string>
+    <string name="tab1_title">Canzoni</string>
+    <string name="tab2_title">Artisti</string>
+    <string name="tab3_title">Album</string>
+    <string name="tab4_title">Playlist</string>
+    <string name="prevText">Precedente</string>
+    <string name="nextText">Successiva</string>
+</resources>
