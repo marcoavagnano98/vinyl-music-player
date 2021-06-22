@@ -64,17 +64,14 @@ public class ArtistFragment extends Fragment {
         SongsListAdapter adapter=new SongsListAdapter(getActivity(), new SongsListAdapter.OnRVItemListener() {
             @Override
             public void onItemClick(int position) {
-
                 Intent i = new Intent(getActivity().getApplicationContext(), PlayActivity.class);
                 i.putExtra("artistId", a.getId());
                 i.putExtra("aIndex",position);
                 getActivity().startActivity(i);
             }
-        });
+        },null);
         recyclerView.setAdapter(adapter);
-        model.getPlaylist(a.getSongsId()).observe(getActivity(),songList -> {
-            adapter.setData(songList);
-        });
+        adapter.setData(model.getSongsByListId(model.getSongKey(model.getSongsArtist(),a.getId())));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         //   view.setSupportActionBar(toolbar);

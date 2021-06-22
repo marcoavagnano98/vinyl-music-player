@@ -2,6 +2,7 @@ package com.example.vinylmusicplayer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.vinylmusicplayer.fragments.ArtistFragment;
@@ -15,5 +16,12 @@ public class Utils {
             transaction.addToBackStack(tag);
         }
         transaction.commit();
+    }
+    public static void showFragment(AppCompatActivity activity, Fragment fragment, String tag){
+        FragmentManager fm = activity.getSupportFragmentManager();
+        fm.beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                .show(fragment)
+                .commit();
     }
 }

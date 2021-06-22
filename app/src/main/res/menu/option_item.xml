@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Condividi"
+        android:id="@+id/shareSong"/>
+    <item android:title="Elimina"
+        android:id="@+id/deleteSong"/>
+    <item android:title="Dettagli"
+        android:id="@+id/detailsSong"/>
+
+</menu>

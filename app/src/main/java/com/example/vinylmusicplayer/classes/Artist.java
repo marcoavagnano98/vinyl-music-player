@@ -6,12 +6,12 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Artist {
-    private int id;
+public class  Artist {
+    private String id;
     private String name;
     private List<String> songsId;
 
-    public Artist(int id, String name) {
+    public Artist(String id, String name) {
         this.id=id;
         this.name=name;
         songsId=new ArrayList<>();
@@ -19,7 +19,7 @@ public class Artist {
     public void addSongId(String id){
         songsId.add(id);
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
 

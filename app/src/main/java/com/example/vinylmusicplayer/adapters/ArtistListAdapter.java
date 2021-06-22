@@ -20,7 +20,6 @@ import java.util.List;
 
 public class ArtistListAdapter  extends RecyclerView.Adapter<ArtistListAdapter.ArtistListViewHolder>{
     private List<Artist> artists;
-    Context context;
     OnRVItemListener2 onRVItemListener2;
     public interface OnRVItemListener2 {
         void onItemClick(int position);
@@ -29,9 +28,7 @@ public class ArtistListAdapter  extends RecyclerView.Adapter<ArtistListAdapter.A
 
     public ArtistListAdapter(OnRVItemListener2 onRVItemListener2) {
         this.artists = artists;
-
         this.onRVItemListener2=onRVItemListener2;
-
     }
     public void setData(List<Artist> artistList){
         this.artists=new ArrayList<>(artistList);
@@ -42,7 +39,7 @@ public class ArtistListAdapter  extends RecyclerView.Adapter<ArtistListAdapter.A
 
     @NonNull
     @Override
-    public ArtistListAdapter.ArtistListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ArtistListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.songs_line, parent, false);
         return new ArtistListAdapter.ArtistListViewHolder(layoutView,onRVItemListener2);
     }
@@ -53,7 +50,6 @@ public class ArtistListAdapter  extends RecyclerView.Adapter<ArtistListAdapter.A
         List<String> ids=artists.get(position).getSongsId();
         holder.textView.setText(name);
         Log.d("InfoAbout",name + " " + ids.toString());
-        holder.imageView.setImageResource(R.drawable.unknown_album);
 
     }
 
@@ -68,7 +64,6 @@ public class ArtistListAdapter  extends RecyclerView.Adapter<ArtistListAdapter.A
         OnRVItemListener2 onRVItemListener2;
         public ArtistListViewHolder(@NonNull View itemView,OnRVItemListener2 onRVItemListener2) {
             super(itemView);
-
             textView=itemView.findViewById(R.id.nameSong);
             imageView=itemView.findViewById(R.id.coverAlbum);
             this.onRVItemListener2=onRVItemListener2;

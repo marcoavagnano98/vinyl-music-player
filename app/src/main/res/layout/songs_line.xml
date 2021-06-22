@@ -27,16 +27,25 @@ app:cardCornerRadius="@dimen/cardview_default_radius">
         android:contentDescription="@string/album_cover_iv"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/nameSong"
         android:layout_gravity="center"
         android:layout_marginLeft="25dp"
         android:text="knfjsbfjisdbfhvfhisdbhi"
         android:textAppearance="?attr/textAppearanceBody2"
-
+        android:layout_weight="3"
         />
 
+    <ImageView
+        android:id="@+id/menuDropper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_baseline_more_vert_24"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
 

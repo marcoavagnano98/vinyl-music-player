@@ -1,6 +1,10 @@
 package com.example.vinylmusicplayer.classes;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Environment;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -20,6 +24,7 @@ public class FilesManager {
 
     private Map<String, File> mapAudioFiles;
     private final long START_INDEX = 1000;
+    RandomString randomString=new RandomString();
 
 
     public FilesManager() {
@@ -55,12 +60,25 @@ public class FilesManager {
 
     private void fillMap(File[] files) {
         for (int i = 0; i < files.length; i++) {
-            long id = START_INDEX + i;
-            mapAudioFiles.put(String.valueOf(id), files[i]);
+            mapAudioFiles.put(randomString.nextString(), files[i]);
         }
     }
 
     public File getAudioFIleById(String id) {
         return mapAudioFiles.get(id);
     }
+
+    public static void deleteFile(Uri uri, Context context) {
+        String path=uri.getPath();
+        File file= new File(uri.getPath());
+        if (file.exists()) {
+            boolean deleted=file.delete();
+          //  new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/MyFolder").delete();
+//            contentResolver.delete(Uri.parse(path), null, null);
+            Toast.makeText(context, path.concat("" + deleted),Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(context, path.concat(" non esiste!!"),Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

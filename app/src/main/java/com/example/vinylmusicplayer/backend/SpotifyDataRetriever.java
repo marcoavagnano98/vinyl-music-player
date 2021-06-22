@@ -97,7 +97,7 @@ public class SpotifyDataRetriever {
         token = sharedPref.getString(activity.getString(R.string.access_token), "");
     }
 
-    public void query(String q, int index) {
+    public void query(String songId,String q, int index) {
         Thread t = new Thread(() -> {
             try {
                 Log.d("LocalVB", token + " " + accessTokenRequestDate);
@@ -112,7 +112,7 @@ public class SpotifyDataRetriever {
                     editor.apply();
                     Log.d("Date", accessTokenRequestDate.toString());
                 }
-                String[] data = getSongData(q);
+                String[] data = getSongData(songId,q);
                 Log.d("JSON2", data[0] + "   " + index);
                 listener.onDataLoaded(data, index);
             } catch (JSONException e) {
@@ -135,43 +135,29 @@ public class SpotifyDataRetriever {
     }
 
     //[0]=artist name, [1]=album_cover_image
-    private String[] getSongData(String songTitle) throws JSONException {
+    private String[] getSongData(String songId,String songTitle) throws JSONException {
 
         String urlSearchArtist = API_REQUEST_URL.concat("search?q=").concat(songTitle).concat("&type=track");
         JSONObject response = VolleyRequestHelper.getRequest(urlSearchArtist,
                 Collections.singletonMap("Authorization", "Bearer ".concat(token)), activity.getApplicationContext());
-//        try {
-//            if (songTitle.equals(URLEncoder.encode("A little party never killed nobody", String.valueOf(StandardCharsets.UTF_8)))) {
-//                int a =0;
-//                Log.d("A", a+"");
-//            }
-//        }catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
+
         if (response.getJSONObject("tracks").getString("total").compareTo("0") == 0) {
             Log.d("JSON2", "Various");
             emptySearch = true;
             return new String[]{"Various Artists", ""};
         }
-       // JSONArray artistArray = ((JSONObject) ((JSONObject) response.getJSONObject("tracks").getJSONArray("items").get(0)).get("album")).getJSONArray("artists");
-      //  String artistName = artistArray.getJSONObject(0).getString("name"); //main artist
-//        JSONArray images = ((JSONObject) ((JSONObject) response.getJSONObject("tracks").getJSONArray("items").get(0)).get("album")).getJSONArray("images");
-//        String imageURL = images.getJSONObject(0).getString("url");
-//        for (int i = 1; i < artistArray.length(); i++) {
-//            String nextArtist = artistArray.getJSONObject(i).getString("name");
-//            if (i == 1) {
-//                artistName = artistName.concat(" feat. ".concat(nextArtist));
-//            } else {
-//                artistName = artistName.concat(", ".concat(nextArtist));
-//            }
-//        }
+
         String artistName="";
+        String imageUrl="";
+        String albumName="";
    //     if (artistName.equals("Various Artists") && !emptySearch) {
             JSONArray listArtists = response.getJSONObject("tracks").getJSONArray("items");
             for (int i = 0; i < listArtists.length(); i++) {
                 JSONArray artistArray= ((JSONObject)((JSONObject) listArtists.get(i)).get("album")).getJSONArray("artists");
-                JSONObject app = (JSONObject) ((JSONObject) ((JSONObject) listArtists.get(i)).get("album")).getJSONArray("artists").get(0);
-                artistName = app.getString("name");
+                JSONObject artistNameApp = (JSONObject) ((JSONObject) ((JSONObject) listArtists.get(i)).get("album")).getJSONArray("artists").get(0);
+                imageUrl=((JSONObject) ((JSONObject) listArtists.get(i)).get("album")).getJSONArray("images").getJSONObject(1).getString("url");
+                albumName=((JSONObject)((JSONObject) listArtists.get(i)).get("album")).getString("name");
+                artistName = artistNameApp.getString("name");
                 if (artistName.equals("Various Artists") && i != listArtists.length() - 1) {
                     artistName = "";
                 }else{
@@ -183,6 +169,7 @@ public class SpotifyDataRetriever {
                             artistName = artistName.concat(", ".concat(nextArtist));
                         }
                     }
+
                     break;
                 }
                 Log.d("ds", "dfs");
@@ -192,7 +179,8 @@ public class SpotifyDataRetriever {
         if (artistName.equals("")) {
             artistName = "Various Artist";
         }
-        return new String[]{artistName, "imageURL"};
+
+        return new String[]{artistName,albumName,imageUrl,songId};
     }
 
     private String findFirstValue(JSONObject object, String value) {

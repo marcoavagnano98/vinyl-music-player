@@ -2,13 +2,17 @@ package com.example.vinylmusicplayer.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylmusicplayer.R;
@@ -22,17 +26,20 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Song
     private List<String> artistNames = new ArrayList<>();
     Activity activity;
     OnRVItemListener onRVItemListener;
+    OnOptionMenuListener onOptionMenuListener;
 
-    public SongsListAdapter(Activity activity, OnRVItemListener onRVItemListener) {
+    public SongsListAdapter(Activity activity, OnRVItemListener onRVItemListener, OnOptionMenuListener onOptionMenuListener) {
         this.onRVItemListener = onRVItemListener;
-       // this.songList = songList;
+        this.onOptionMenuListener = onOptionMenuListener;
+        // this.songList = songList;
         this.activity = activity;
-        songList=new ArrayList<>();
+        songList = new ArrayList<>();
 
     }
-    public void setData(List<Song> songList){
 
-        this.songList=new ArrayList<>(songList);
+    public void setData(List<Song> songList) {
+
+        this.songList = new ArrayList<>(songList);
         this.notifyDataSetChanged();
         //this.songList=new ArrayList<>(songList);
     }
@@ -41,20 +48,32 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Song
         void onItemClick(int position);
     }
 
+    public interface OnOptionMenuListener {
+        void onItemClick(int position, int itemClicked);
+    }
+
 
     @NonNull
     @Override
     public SongsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.songs_line, parent, false);
-        return new SongsViewHolder(layoutView, onRVItemListener);
+        return new SongsViewHolder(layoutView, onRVItemListener, onOptionMenuListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SongsViewHolder holder, int position) {
-
         holder.textView.setText(songList.get(position).getTitle());
-        holder.imageView.setImageResource(R.drawable.unknown_album);
+        if (songList.get(position).getCoverImage() == null) {
+            holder.imageView.setImageResource(R.drawable.unknown_album);
+        } else {
+            holder.imageView.setImageDrawable(songList.get(position).getCoverImage());
+        }
 
+    }
+
+    public void updateCoverImage(int position,Drawable drawable) {
+        songList.get(position).setCoverImage(drawable);
+        notifyItemChanged(position);
     }
 
     @Override
@@ -62,16 +81,37 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Song
         return songList.size();
     }
 
-    public static class SongsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class SongsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textView;
         ImageView imageView;
         OnRVItemListener onRVItemListener;
-        public SongsViewHolder(@NonNull View itemView, OnRVItemListener onRVItemListener) {
+        ImageView optionMenu;
+
+        public SongsViewHolder(@NonNull View itemView, OnRVItemListener onRVItemListener, OnOptionMenuListener onOptionMenuListener) {
             super(itemView);
 
-            textView=itemView.findViewById(R.id.nameSong);
-            imageView=itemView.findViewById(R.id.coverAlbum);
-            this.onRVItemListener=onRVItemListener;
+            textView = itemView.findViewById(R.id.nameSong);
+            imageView = itemView.findViewById(R.id.coverAlbum);
+            optionMenu = itemView.findViewById(R.id.menuDropper);
+            optionMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu popup = new PopupMenu(optionMenu.getContext(), itemView);
+
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            onOptionMenuListener.onItemClick(getAdapterPosition(), item.getItemId());
+                            return true;
+                        }
+                    });
+                    popup.inflate(R.menu.option_item);
+                    popup.setGravity(Gravity.RIGHT);
+                    popup.show();
+
+                }
+            });
+            this.onRVItemListener = onRVItemListener;
             itemView.setOnClickListener(this);
         }
 

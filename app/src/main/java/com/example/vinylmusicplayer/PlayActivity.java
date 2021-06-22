@@ -36,7 +36,7 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play);
+        setContentView(R.layout.play_view);
         FloatingActionButton prevSong = findViewById(R.id.buttonPrev);
         FloatingActionButton nextSong = findViewById(R.id.buttonNext);
 
@@ -44,7 +44,6 @@ public class PlayActivity extends AppCompatActivity {
         startIndex = i.getIntExtra("position", -1);
         if(startIndex==-1){ //play from artists songs
             startIndex=i.getIntExtra("aIndex",-1);
-            String artist=
         }
         if(i.getIntArrayExtra("playlist") == null){
             ListViewModel lvM=new ViewModelProvider((ViewModelStoreOwner) this).get(ListViewModel.class);

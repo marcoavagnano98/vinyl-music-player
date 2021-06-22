@@ -9,58 +9,120 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/topbar"
-         />
+        layout="@layout/topbar" />
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize">
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutHome"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabBackground="?attr/colorPrimary"
+            app:tabIndicatorColor="@color/white"
+            app:tabTextColor="@color/white"
+
+            >
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/songsTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/songTabText"
+
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/artistTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/artistTabText" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/albumTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/albumTabText" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/playlistTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/playlistTabText" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/tabPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayoutHome" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/musicBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tabBackground="?attr/colorPrimary"
-        app:tabIndicatorColor="@color/white"
-        app:tabTextColor="@color/white"
-
-        >
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/songsTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/songTabText"
-
-            />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/artistTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/artistTabText" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/albumTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/albumTabText" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/playlistTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/playlistTabText" />
-    </com.google.android.material.tabs.TabLayout>
-    <androidx.viewpager2.widget.ViewPager2
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:visibility="gone">
+        <View
+            android:background="#bdbdbd"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/musicBar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/tabPager"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayoutHome"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        >
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="@drawable/ic_baseline_keyboard_arrow_up_24"
+            android:backgroundTint="@color/black"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="Apri lettore" />
+        <TextView
+            android:id="@+id/musicBarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+          android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            />
+        <ImageButton
+            android:id="@+id/musicBarIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/ic_baseline_pause_24"
+            android:backgroundTint="@color/black"
+            android:layout_marginEnd="10dp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    </LinearLayout>
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/musicBarText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/app_name"-->
+<!--                android:textColor="#000000"-->
+<!--                android:layout_centerVertical="false"-->
+<!--                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>-->
+
+<!--        </RelativeLayout>-->
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
