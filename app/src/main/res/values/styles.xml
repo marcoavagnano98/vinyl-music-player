@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="fontFamily">@font/free_sans_bold</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        /// change your font
+    </style>
+<style name="AppTheme.MenuOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.PopupMenu.Header</item>
+
+</style>
+</resources>

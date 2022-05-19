@@ -13,8 +13,8 @@ android:layout_height="wrap_content">
     android:id="@+id/topAppBar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    app:title="Vinyl"
-    app:menu="@menu/top_app_bar"
+    app:title="Vinyl Music Player"
+    app:titleTextColor="@color/white"
     style="@style/Widget.MaterialComponents.Toolbar.Primary"
     />
 

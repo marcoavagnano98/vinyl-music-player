@@ -31,7 +31,7 @@ public class VolleyRequestHelper {
        });
        try {
            JSONObject object = future.get(30,TimeUnit.SECONDS);
-           Log.d("JSON2",object.toString() );
+           Log.d("JSON2",object.toString());
            return object;
        } catch (InterruptedException | ExecutionException | TimeoutException e) {
            Throwable cause = e.getCause();

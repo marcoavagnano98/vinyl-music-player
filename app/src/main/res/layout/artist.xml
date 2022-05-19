@@ -1,24 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <com.google.android.material.appbar.AppBarLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+   >
+    <com.google.android.material.appbar.MaterialToolbar
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        android:background="?attr/colorPrimaryVariant"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:cardCornerRadius="0dp"
+        app:strokeWidth="0dp"
+        app:strokeColor="?attr/colorPrimaryVariant"
+        android:id="@+id/materialCard"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="?attr/colorPrimaryVariant">
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <TextView
+            android:id="@+id/numSongs"
+            app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toEndOf="@id/musicIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="18 canzoni"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/musicIcon"
+
+            android:layout_gravity="center_vertical"/>
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          android:src="@drawable/ic_baseline_music_note_24"
+          android:layout_marginStart="10dp"
+          app:tint="@color/white"
+          android:id="@+id/musicIcon"
+          />
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/musicIcon"
+
+          android:src="@drawable/ic_baseline_album_24"
+
+          app:tint="@color/white"
+          android:id="@+id/albumIcon"
+          />
+      <TextView
+          android:id="@+id/numAlbum"
+          app:layout_constraintTop_toBottomOf="@id/numSongs"
+          app:layout_constraintStart_toEndOf="@id/albumIcon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/white"
+          android:text="18 album"
+          android:layout_marginStart="10dp"
+          app:layout_constraintBottom_toBottomOf="@id/albumIcon"
+
+          android:layout_gravity="center_vertical"/>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/circlecard"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/materialCard"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        android:layout_marginTop="85dp"
+        app:cardCornerRadius="70dp" >
+        <ImageView
+            android:id="@+id/coverArtist"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/album_cover_iv"
+            android:padding="10dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/circlecard"
+        android:fontFamily="@font/free_sans_bold"
+        android:id="@+id/songHeader"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+
+        android:layout_marginStart="85dp"
+        android:text="Canzoni"/>
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/songHeaderLayout"
+       app:layout_constraintTop_toBottomOf="@id/songHeader"
+       app:layout_constraintStart_toStartOf="parent">
+
+
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </com.google.android.material.appbar.AppBarLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="?attr/actionBarSize">
-    <include layout="@layout/page" />
-</LinearLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:fitsSystemWindows="true"
+            />
+   </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#eceff1"
+        app:layout_constraintTop_toBottomOf="@id/songHeaderLayout"
+        android:layout_marginStart="85dp"
+        android:id="@+id/albumDivider"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/albumTitle"
+        android:fontFamily="@font/free_sans_bold"
+        android:textSize="18sp"
+        android:layout_marginStart="85dp"
+        app:layout_constraintTop_toBottomOf="@id/albumDivider"
+        android:text="Album"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/showAlbumLayout"
+        app:layout_constraintTop_toBottomOf="@id/albumTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        >
+
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fitsSystemWindows="true"
+        android:layout_height="match_parent"
+        android:id="@+id/albumRvSlided"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

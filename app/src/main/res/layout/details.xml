@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:text="Dettagli"/>
+<TextView
+    android:id="@+id/detailsText"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/header"
+    android:layout_width="wrap_content"
+    android:layout_margin="10dp"
+    android:text="Nome"
+    android:fontFamily="@font/pragmatica_medium"
+    android:layout_height="wrap_content"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/closePopup"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        android:textColor="?attr/colorPrimary"
 
+        app:layout_constraintEnd_toEndOf="@id/detailsText"
+        app:layout_constraintTop_toBottomOf="@+id/detailsText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

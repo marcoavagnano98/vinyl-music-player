@@ -28,7 +28,7 @@ public class FilesManager {
 
 
     public FilesManager() {
-        goodExtensions = new String[]{".mp3", ".ogg", ".wav", ".pcm"};
+        goodExtensions = new String[]{".mp3",".opus", ".ogg", ".wav", ".pcm",".3gp",".mp4", ".m4a",".aac",".amr",".flac",".mkv"};
         mapAudioFiles = new HashMap<>();
     }
 
@@ -60,7 +60,8 @@ public class FilesManager {
 
     private void fillMap(File[] files) {
         for (int i = 0; i < files.length; i++) {
-            mapAudioFiles.put(randomString.nextString(), files[i]);
+            String path=files[i].getAbsolutePath();
+            mapAudioFiles.put(path, files[i]);
         }
     }
 
@@ -75,7 +76,7 @@ public class FilesManager {
             boolean deleted=file.delete();
           //  new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/MyFolder").delete();
 //            contentResolver.delete(Uri.parse(path), null, null);
-            Toast.makeText(context, path.concat("" + deleted),Toast.LENGTH_LONG).show();
+
         }else{
             Toast.makeText(context, path.concat(" non esiste!!"),Toast.LENGTH_LONG).show();
         }

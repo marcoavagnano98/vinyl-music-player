@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/addToPlaylist"
+        android:title="@string/add_to_playlist_menu"/>
 
+    <item
+        android:id="@+id/randomPlay"
+        android:title="Riproduzione casuale"
+        />
+    <item
+        android:id="@+id/details"
+        android:title="Dettagli"/>
 </menu>

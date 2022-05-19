@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<TextView
+    android:id="@+id/header"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="20dp"
+    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+    />
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="@id/header"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pragmatica_medium"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelDeleting"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancella"
+        android:textAlignment="textEnd"
+        android:textColor="?attr/colorPrimary"
+
+        app:layout_constraintEnd_toStartOf="@id/deleteButton"
+        app:layout_constraintTop_toBottomOf="@+id/message" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deleteButton"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        android:textColor="?attr/colorPrimary"
+android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="@id/message"
+        app:layout_constraintTop_toBottomOf="@+id/message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

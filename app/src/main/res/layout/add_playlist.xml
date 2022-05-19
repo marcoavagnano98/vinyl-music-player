@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/coverPlaylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Nuova playlist"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.050"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/nome_playlist"
+        android:textAlignment="center"
+
+        app:layout_constraintTop_toBottomOf="@+id/coverPlaylist"
+        app:startIconDrawable="@drawable/ic_baseline_library_music_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputPlaylist"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/chooseCover"-->
+<!--        style="?attr/borderlessButtonStyle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Scegli la copertina"-->
+<!--        android:textAlignment="textEnd"-->
+<!--        android:textColor="?attr/colorPrimary"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/editTextLayout"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/editTextLayout" />-->
+
+<!--    <TextView-->
+
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="13dp"-->
+<!--        android:fontFamily="@font/pragmatica_medium"-->
+<!--        android:hint="Copertina della playlist"-->
+<!--        android:textSize="17dp"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/chooseCover"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/editTextLayout" />-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelInsert"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancella"
+        android:textAlignment="textEnd"
+        android:textColor="?attr/colorPrimary"
+        android:layout_marginTop="25dp"
+
+        app:layout_constraintEnd_toStartOf="@id/savePlaylist"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLayout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/savePlaylist"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/salva_playlist"
+        android:layout_marginTop="25dp"
+        android:textColor="?attr/colorPrimary"
+
+        app:layout_constraintEnd_toEndOf="@id/editTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLayout" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

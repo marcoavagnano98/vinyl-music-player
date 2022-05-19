@@ -5,21 +5,20 @@
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="@string/searchTextHint"
-        app:showAsAction="ifRoom" />
+        android:title="Ricerca"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
     <item
         android:id="@+id/firstMore"
-        android:title="@string/settingsText"
         android:contentDescription=""
+        android:title="@string/settingsText"
         app:showAsAction="never" />
     <item
         android:id="@+id/secondMore"
-        android:title="@string/helpText"
         android:icon="@drawable/ic_baseline_help_24"
+        android:title="@string/helpText"
         app:showAsAction="never" />
-
-
-
 
 
 </menu>

@@ -3,6 +3,7 @@ package com.example.vinylmusicplayer.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,36 +18,74 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vinylmusicplayer.R;
 import com.example.vinylmusicplayer.Utils;
 import com.example.vinylmusicplayer.adapters.ArtistListAdapter;
+import com.example.vinylmusicplayer.classes.Artist;
 import com.example.vinylmusicplayer.classes.OnRVItemListener;
 import com.example.vinylmusicplayer.viewmodels.ListViewModel;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
-public class ArtistListFragment extends Fragment {
+public class ArtistPageFragment extends Fragment {
     private final ListViewModel model;
-    private SongListFragment.OnSongItemClicked songItemClicked;
-
-    public ArtistListFragment(ListViewModel model, SongListFragment.OnSongItemClicked songItemClicked) {
+    private SongPageFragment.OnSongItemClicked songItemClicked;
+    ArtistListAdapter adapter;
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        EventBus.getDefault().register(this);
+//
+//    }
+    public ArtistPageFragment(ListViewModel model, SongPageFragment.OnSongItemClicked songItemClicked) {
         this.model = model;
         this.songItemClicked = songItemClicked;
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(HomeFragment.QuerySearch event) {
+        Log.d("NUMBER", event.page + "");
+        if (event.page == 1) {
+            adapter.filter(model.getArtists().getValue(), event.query);
+        }
+    }
 
+    @Override
+    public void onResume() {
+        EventBus.getDefault().register(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.page, container, false);
     }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onEvent(SongPageFragment.SongRemoved event) {
+//        adapter.notifyDataSetChanged();
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        ArtistListAdapter adapter = new ArtistListAdapter(new OnRVItemListener() {
+        if(model.getSongs().getValue().isEmpty()){
+            recyclerView.setVisibility(View.GONE);
+        }
+         adapter = new ArtistListAdapter(new OnRVItemListener() {
             @Override
             public void onItemClick(int position) {
+                Artist artist=adapter.getArtists().get(position);
                 Fragment fragment = new ArtistFragment(model, songItemClicked);
                 Bundle args = new Bundle();
-                args.putInt("position", position);
+                args.putString("artistId", artist.getId());
                 fragment.setArguments(args);
                 Utils.insertFragment((AppCompatActivity) getActivity(), fragment, "ArtistFragment");
             }
@@ -72,7 +111,9 @@ public class ArtistListFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(adapter);
-        adapter.setData(model.getArtists().getValue());
+        model.getArtists().observe(getViewLifecycleOwner(),(list)->{
+            adapter.setData(list);
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }

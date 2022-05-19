@@ -1,4 +1,9 @@
 package com.example.vinylmusicplayer.helpers;
 
-public class OnSwapedQueueElement {
+import com.example.vinylmusicplayer.classes.Song;
+
+import java.util.List;
+
+public interface OnSwapedQueueElement {
+     void swaped();
 }

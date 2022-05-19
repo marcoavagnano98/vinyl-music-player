@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -14,13 +16,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VinylMusicPlayer">
-        <activity android:name=".PlayActivity"></activity>
 
+<!--        <service android:name=".MediaPlaybackService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.media.browse.MediaBrowserService" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".StartActivity" />
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".MainActivity"/>
+            <activity android:name=".StartActivity" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"
+                    android:configChanges="keyboardHidden|orientation"
+                    />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

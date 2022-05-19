@@ -2,12 +2,11 @@ package com.example.vinylmusicplayer.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,25 +17,49 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylmusicplayer.R;
 import com.example.vinylmusicplayer.Utils;
-import com.example.vinylmusicplayer.adapters.AlbumListAdapter;
+import com.example.vinylmusicplayer.adapters.AlbumGridAdapter;
 import com.example.vinylmusicplayer.classes.Album;
 import com.example.vinylmusicplayer.viewmodels.ListViewModel;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-public class AlbumListFragment extends Fragment {
+public class AlbumPageFragment extends Fragment {
     private RecyclerView recyclerView;
     private ListViewModel model;
-    SongListFragment.OnSongItemClicked onSongItemClicked;
+    SongPageFragment.OnSongItemClicked onSongItemClicked;
+    AlbumGridAdapter albumGridAdapter;
+    @Override
+    public void onResume() {
+        EventBus.getDefault().register(this);
+        super.onResume();
 
+    }
 
-    public AlbumListFragment(ListViewModel model, SongListFragment.OnSongItemClicked onSongItemClicked) {
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(HomeFragment.QuerySearch event) {
+        Log.d("NUMBER", event.page + "");
+        if (event.page == 2) {
+            albumGridAdapter.filter(model.getAlbum().getValue(), event.query);
+        }
+    }
+
+    public AlbumPageFragment(ListViewModel model, SongPageFragment.OnSongItemClicked onSongItemClicked) {
         this.model = model;
         this.onSongItemClicked=onSongItemClicked;
     }
-
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onEvent(SongPageFragment.SongRemoved event) {
+//        albumGridAdapter.notifyDataSetChanged();
+//    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -47,6 +70,9 @@ public class AlbumListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.recyclerView);
+        if(model.getSongs().getValue().isEmpty()){
+            recyclerView.setVisibility(View.GONE);
+        }
         List<Album> listAlbum=model.getAlbum().getValue();
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -71,15 +97,17 @@ public class AlbumListFragment extends Fragment {
 
 
         });
-        AlbumListAdapter albumListAdapter = new AlbumListAdapter(position->{
+         albumGridAdapter = new AlbumGridAdapter(position->{
             AlbumFragment albumFragment=new AlbumFragment(model,onSongItemClicked);
             Bundle bundle=new Bundle();
-            bundle.putString("albumId",listAlbum.get(position).getId());
+            bundle.putString("albumId",albumGridAdapter.getAlbum().get(position).getId());
             albumFragment.setArguments(bundle);
             Utils.insertFragment((AppCompatActivity) getActivity(), albumFragment, "AlbumFragment");
         });
-        recyclerView.setAdapter(albumListAdapter);
-        albumListAdapter.setData(model.getAlbum().getValue());
+        recyclerView.setAdapter(albumGridAdapter);
+        model.getAlbum().observe(getViewLifecycleOwner(),(list)->{
+            albumGridAdapter.setData(list);
+        });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
     }
 

@@ -1,12 +1,10 @@
 package com.example.vinylmusicplayer.adapters;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.service.autofill.FillEventHistory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,24 +16,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylmusicplayer.R;
 import com.example.vinylmusicplayer.classes.Album;
+import com.example.vinylmusicplayer.classes.Artist;
 import com.example.vinylmusicplayer.classes.OnRVItemListener;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumListViewHolder> {
+public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.AlbumListViewHolder> {
     private List<Album> album = new ArrayList<>();
     private OnRVItemListener onRVItemListener;
-    public AlbumListAdapter(OnRVItemListener onRVItemListener){
+    public AlbumGridAdapter(OnRVItemListener onRVItemListener){
         this.onRVItemListener=onRVItemListener;
     }
+    public void filter(List<Album> searchableList, String query) {
+        List<Album> list = new ArrayList<>();
+        if (!query.equals("")) {
+            for (Album album : searchableList) {
+                if (album.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                    list.add(album);
+                }
+            }
+            album = list;
+        } else {
+            album = searchableList;
+        }
+        notifyDataSetChanged();
+    }
 
-
+    public List<Album> getAlbum() {
+        return album;
+    }
 
     @NonNull
     @Override

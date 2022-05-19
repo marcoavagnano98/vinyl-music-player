@@ -1,0 +1,56 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <com.google.android.material.appbar.MaterialToolbar
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        android:background="?attr/colorPrimaryVariant"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:cardCornerRadius="0dp"
+        app:strokeWidth="0dp"
+        app:strokeColor="?attr/colorPrimaryVariant"
+        android:id="@+id/materialCard"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="?attr/colorPrimaryVariant">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_play_arrow_24"
+                android:tint="?attr/colorPrimary"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/white"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+<LinearLayout
+    app:layout_constraintTop_toBottomOf="@id/materialCard"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPlaylist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,10 +9,9 @@ import java.io.Serializable;
 
 public class Song {
     private final String id;
-    private int idArtist;
-    private int idAlbum;
+    private String artistName;
     private final Uri uri;
-    private String type;
+    private int duration;
     private final String title;
     private Drawable coverImage;
 
@@ -24,6 +23,14 @@ public class Song {
 
     public void setCoverImage(Drawable coverImage) {
         this.coverImage = coverImage;
+    }
+
+    public void setArtistName(String value) {
+        this.artistName = value;
+    }
+
+    public String getArtistName() {
+        return artistName;
     }
 
     public Drawable getCoverImage() {
@@ -38,14 +45,17 @@ public class Song {
         return id;
     }
 
-    public String getType() {
-        return type;
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public String getTitle() {
         return title;
     }
-
 
 
 }

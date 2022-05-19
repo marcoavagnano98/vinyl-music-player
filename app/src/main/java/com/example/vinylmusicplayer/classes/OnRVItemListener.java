@@ -1,4 +1,5 @@
 package com.example.vinylmusicplayer.classes;
 
-public interface OnRvItemListener {
+public interface OnRVItemListener {
+    void onItemClick(int position);
 }
